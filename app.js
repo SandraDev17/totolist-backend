@@ -62,7 +62,7 @@ const todos = [
             "created_at" : "Wed Mar 05 10:01:55 +0000 2015",
             "Tags": [
               "Presentation",
-              "Aureia"
+              "Aurelia"
             ],
             "is_complete" : false
           },
@@ -338,6 +338,12 @@ app.delete('/todos/:id', (req, res) => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
-});
+// Démarre le serveur uniquement si on lance directement ce fichier.
+if (require.main === module) {
+    app.listen(3000, () => {
+        console.log('Server is running on http://localhost:3000');
+    });
+}
+
+// Rend l'application accessible dans les tests.
+module.exports = app;
